@@ -1,9 +1,11 @@
 import React, { useContext } from 'react'
-import { Layout, Flex, Popover, Button } from 'antd'
+import { Layout, Flex } from 'antd'
 import '../styles/App.css'
 import BikeCard from '../components/BikeCard'
 import BikeForm from '../components/BikeForm'
+
 import { BikeContext } from '../Context/Context'
+import CalendarComponent from '../components/Calendar'
 
 const layoutStyle: React.CSSProperties = {
   position: 'absolute',
@@ -28,6 +30,7 @@ const { Header, Content, Footer } = Layout
 export default function Home() {
   const {
     bikes,
+    rents,
     bikeToUpdate,
     deleteBike,
     createBike,
@@ -62,6 +65,9 @@ export default function Home() {
             onUpdate={(formData) => updateBike(formData)}
             onClose={() => closeModal()}
           />
+          <Flex justify="center">
+            <CalendarComponent />
+          </Flex>
         </Content>
         <Footer>Jacque Pedalo</Footer>
       </Layout>

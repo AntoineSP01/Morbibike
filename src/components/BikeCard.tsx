@@ -1,8 +1,10 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { Flex, Button, Popover, Row, Col } from 'antd'
 import '../styles/App.css'
 import { Bike } from '../models/Bike'
 import { Link } from 'react-router-dom'
+import { Rent } from '../models/Rent'
+import { BikeContext } from '../Context/Context'
 
 interface Props {
   bike: Bike
@@ -11,14 +13,14 @@ interface Props {
 }
 
 export const BikeCard = ({ bike, onDelete, onUpdate }: Props) => {
-  const [open, setOpen] = useState<boolean>(false)
+  const [openDelete, setOpenDelete] = useState<boolean>(false)
 
-  const hide = () => {
-    setOpen(false)
+  const closeDeleteModal = () => {
+    setOpenDelete(false)
   }
 
-  const handleOpenChange = () => {
-    setOpen(true)
+  const handleOpenDeleteChange = () => {
+    setOpenDelete(true)
   }
 
   const content = (
@@ -26,7 +28,7 @@ export const BikeCard = ({ bike, onDelete, onUpdate }: Props) => {
       <p>Are you sure ?</p>
       <Flex gap={30} justify="center">
         <Button onClick={onDelete}>Yes</Button>
-        <Button onClick={hide}>No</Button>
+        <Button onClick={closeDeleteModal}>No</Button>
       </Flex>
     </Flex>
   )
@@ -44,8 +46,8 @@ export const BikeCard = ({ bike, onDelete, onUpdate }: Props) => {
         <Col span={2}>
           <Popover
             content={content}
-            open={open}
-            onOpenChange={handleOpenChange}
+            open={openDelete}
+            onOpenChange={handleOpenDeleteChange}
             trigger={'click'}
             placement="bottom"
           >
@@ -57,7 +59,7 @@ export const BikeCard = ({ bike, onDelete, onUpdate }: Props) => {
         </Col>
         <Col span={2}>
           <Link to={`detailbike/${bike.id}`}>
-            <Button>Plus de détail</Button>
+            <Button>More details</Button>
           </Link>
         </Col>
       </Row>
